@@ -8,5 +8,5 @@ Standards-Version: 3.8.0
 
 Package: oi-help-compiler
 Architecture: all
-Depends: ${python:Depends}
+Depends: ${python:Depends}, python-pybabel
 Description: Compiler from/to gettext .po format, to internal OI help format

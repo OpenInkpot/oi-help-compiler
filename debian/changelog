@@ -1,3 +1,9 @@
+oi-help-compiler (0.1-2) asimov; urgency=low
+
+  * Fix packaging issues
+
+ -- Alexander V. Nikolaev <avn@daemon.hole.ru>  Thu, 19 Nov 2009 23:25:45 +0200
+
 oi-help-compiler (0.1) asimov; urgency=low
 
   * Initial release.
