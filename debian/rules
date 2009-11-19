@@ -1,0 +1,8 @@
+#!/usr/bin/make -f
+%:
+        dh --with=python-support $@
+
+install:
+        install -m 755 -d debian/tmp/usr/bin
+        install -m 755 oi-help-compiler debian/tmp/usr/bin/oi-help-compiler
+

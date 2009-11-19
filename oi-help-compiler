@@ -1,0 +1,70 @@
+#!/usr/bin/python
+import os
+import sys
+from babel.messages.catalog import Catalog
+from babel.messages.pofile import read_po, write_po
+
+def usage():
+    print """
+Usage: 
+    %(me)s -h                           -- this help
+    %(me)s -p <oi-help-dir> <po-dir>    -- pack OI help into .po
+    %(me)s -u <po-dir> <oi-help-dir>    -- unpack .po into OI help format
+    """ % dict(me=sys.argv[0])
+    sys.exit(1)
+
+def _filtered_ls(path, suffix):
+    for each in os.listdir(path):
+        if each.endswith(suffix):
+            yield each
+
+def pack_help(helpdir, podir):
+    if not os path.isdir(podir):
+        os.mkdir(podir)
+    for langdir in os.listdir(helpdir):
+        if not os.path.isdir(os.path.join(helpdir, langdir)):
+            continue
+        catalog = Catalog()
+        for each in _filtered_ls(os.path.join(helpdir, langdir), ".help"):
+            msgid = each.rstrip(".help")
+            f = open(os.path.join(helpdir, langdir, each), 'r')
+            msgstr = f.read().decode('utf-8')
+            f.close()
+            catalog.add(msgid, string=msgstr)
+        f = open(os.path.join(podir, "%s.po" % langdir),'w')
+        write_po(f, catalog)
+        f.close()
+
+
+def unpack_help(podir, helpdir):
+    if not os.path.isdir(helpdir):
+        os.mkdir(helpdir)
+    for each in _filtered_ls(podir, ".po"):
+        lang = each.rstrip('.po')
+        langdir = os.path.join(helpdir, lang)
+        f = open(os.path.join(podir, each), 'r')
+        catalog = read_po(f)
+        f.close()
+        if not os.path.isdir(langdir):
+            os.mkdir(langdir)
+        for msg in catalog:
+            msgid = msg.id
+            # Metadata has empty msgid, omit writing "xx/.help"
+            if not msgid:
+                continue
+            msgstr = msg.string
+            f = open(os.path.join(langdir, "%s.help" % msgid), 'w')
+            f.write(msgstr.encode('utf-8'))
+            f.close()
+
+if len(sys.argv) == 2 and sys.argv[1] == "-h":
+    usage()
+elif len(sys.argv) == 4:
+    if sys.argv[1] == "-p":
+        pack_help(sys.argv[2], sys.argv[3])
+    elif sys.argv[1] == "-u":
+        unpack_help(sys.argv[2], sys.argv[3])
+    else:
+        usage()
+else:
+    usage()
