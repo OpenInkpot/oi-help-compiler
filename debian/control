@@ -1,6 +1,7 @@
 Source: oi-help-compiler
 Section: host/tools
 Maintainer: Alexander V. Nikolaev <avn@daemon.hole.ru>
+Build-Depends: debhelper
 XCS-Cross-Host-Build-Depends: debhelper
 Priority: optional
 Standards-Version: 3.8.0
