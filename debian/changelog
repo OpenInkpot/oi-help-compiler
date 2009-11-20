@@ -1,3 +1,9 @@
+oi-help-compiler (0.1-3) asimov; urgency=low
+
+  * Typo in code
+
+ -- Alexander V. Nikolaev <avn@daemon.hole.ru>  Fri, 20 Nov 2009 23:50:27 +0200
+
 oi-help-compiler (0.1-2) asimov; urgency=low
 
   * Fix packaging issues
